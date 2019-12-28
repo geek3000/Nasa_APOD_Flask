@@ -1,0 +1,50 @@
+body{
+    text-align: center !important;
+    color: yellow !important;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+#card_data{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+    font-size: xx-large;
+}
+
+#search{
+    height: 250px !important;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
+}
+
+#data{
+    text-align: center;
+}
+
+
+#img_nasa{
+    padding-top: 50px !important;
+}
+.date{
+	background-color: blue;
+}
+ /* label color */
+ .input-field label {
+    color: yellow !important;
+  }
+
+  .input-field input{
+      color:  yellow;
+      font-family: 'Times New Roman', Times, serif;
+      border-bottom: 1px solid yellow !important;
+  }
+  /* label focus color */
+  .input-field input[type=text]:focus + label {
+    color: yellow !important;
+  }
+  /* label underline focus color */
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid yellow !important;
+    box-shadow: 0 1px 0 0 yellow !important;
+  }
+  
+  /* icon prefix focus color */
+  .input-field .prefix.active {
+    color: yellow !important;
+  }

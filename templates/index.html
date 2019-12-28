@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Weather Forecast</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href= {{ url_for('static', filename='css/materialize.min.css') }} />
+    <link rel="stylesheet" href= {{ url_for('static', filename='css/main.css') }} />
+
+</head>
+
+<body>
+    <section>
+        <div class="row">
+            <div class="col s12 m12">
+                <div class="card blue darken-4">
+                    <div class="card-content">
+                        <span class="card-title">NASA Astronomy Picture of the Day</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 m3">
+                <div id="search" class="card blue hoverable">
+                    <div class="card-content">
+                        <span class="card-title">Enter The date You to get picture</span>
+						<form id="search_date" method='post' action='/'>
+                        <div class="row">
+                            <div class="input-field col s12 m12">
+                                <i class="material-icons prefix">room</i>
+                                <input type="text" class="datepicker" class="date" name="date">
+                                <label for="city_name">Date</label>
+                            </div>
+                            <div class="col s12 m12">
+                                <a id="send"  class="waves-effect waves-light yellow btn">Get Picture</a>
+                            </div>
+                        </div>
+						</form>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m9">
+                <div id="data" class="card blue">
+                    <span id="name_title" class="card-title">{{ title }}</span>
+
+                    <div class="card-content">
+                        <div class="row">
+                            <div id="card_data" class="col s12 m12 card-panel">
+
+                            <div id="card_data" class="col s12 m12">
+                                <img id="img_nasa" class="col s12 m12 responsive-img tooltipped" src={{ image_link }} alt={{ title }} data-position="bottom" data-tooltip={{ date }} />
+                                <div class="card-panel" id="description">{{ explanation }}</div>
+                            </div>
+
+                        </div>
+                    </div>
+					<form id="save_form" method="GET" action='/save/'>
+                    <a class="fixed-action-btn btn-floating btn-large waves-effect waves-light yellow pulse right">
+						<i class="material-icons">file_download</i></a>
+					</form>
+                </div>
+				<span>Copyright@: NASA APOD</span>
+            </div>
+        </div>
+
+    </section>
+    <script src= {{ url_for('static', filename='js/materialize.min.js') }}></script>
+    <script>
+		const minDate = new Date('1995-12-17');
+		const maxDate = new Date();
+		
+		var toolpip = document.querySelectorAll('.tooltipped');
+		var save = document.querySelector('.fixed-action-btn');
+		var datepicker = document.querySelectorAll('.datepicker');
+		var form = document.querySelector('#save_form');
+		var form1 = document.querySelector("#search_date");
+		var send = document.querySelector("#send");
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            M.FloatingActionButton.init(save, null);
+			
+			M.Datepicker.init(datepicker, {"yearRange": [1995, maxDate.getFullYear()], "minDate": minDate, "maxDate": maxDate, "format": "yyyy-mm-dd"});
+			
+			M.Tooltip.init(toolpip, null);
+        });
+		
+		save.addEventListener('click', function () {
+            form.submit();
+        });
+		send.addEventListener('click', function () {
+            form1.submit();
+        });
+    </script>
+</body>
+
+</html>
