@@ -58,20 +58,17 @@ def index():
     else:
         data=get_data()
         if 'youtube' in data['url']:
-                html= render_template('index.html', title=data['title'],
-                                explanation=data['explanation'],
-                               date=data['date'],
-                               video_link=data['url'])
-            else:
-                html= render_template('index.html', title=data['title'],
-                                explanation=data['explanation'],
-                               date=data['date'],
-                               image_link=data['url'])
-            with open(path, "w") as page:
-                page.write(html)
+            html= render_template('index.html', title=data['title'],
+                                  explanation=data['explanation'],
+                                  date=data['date'],
+                                  video_link=data['url'])
+        else:
+            html= render_template('index.html', title=data['title'],
+                                  explanation=data['explanation'],
+                                  date=data['date'],
+                                  image_link=data['url'])
         with open(path, "w") as page:
-                page.write(html)
-
+            page.write(html)
         return html
 
 @app.route('/save/', methods=["GET"])
