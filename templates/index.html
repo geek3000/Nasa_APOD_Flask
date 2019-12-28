@@ -54,7 +54,12 @@
                             <div id="card_data" class="col s12 m12 card-panel">
 
                             <div id="card_data" class="col s12 m12">
+								{% if image_link: %}
                                 <img id="img_nasa" class="col s12 m12 responsive-img tooltipped" src={{ image_link }} alt={{ title }} data-position="bottom" data-tooltip={{ date }} />
+								{% endif %}
+								{% if video_link: %}
+								<iframe width="560" height="315" src={{ video_link }} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+								{% endif %}
                                 <div class="card-panel" id="description">{{ explanation }}</div>
                             </div>
 

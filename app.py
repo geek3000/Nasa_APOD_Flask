@@ -5,12 +5,15 @@ API_KEY="yMLIcRiTZCrBGxxdREIOV3UMBCpalccrjnUcYQem"
 date=''
 def get_data(date=""):
     json_data=""
-    if date:
-        json_data = requests.get("https://api.nasa.gov/planetary/apod?api_key="+API_KEY+"&date="+date).text
-    else:
-        json_data = requests.get("https://api.nasa.gov/planetary/apod?api_key="+API_KEY).text
-    json_data=json.loads(json_data)
-    return json_data
+    try:
+        if date:
+            json_data = requests.get("https://api.nasa.gov/planetary/apod?api_key="+API_KEY+"&date="+date).text
+        else:
+            json_data = requests.get("https://api.nasa.gov/planetary/apod?api_key="+API_KEY).text
+        json_data=json.loads(json_data)
+        return json_data
+    except:
+        pass
     
 app = Flask(__name__)
 
@@ -23,29 +26,49 @@ def index():
         date=request.form['date']
         if date:
             data=get_data(date)
-            html= render_template('index.html', title=data['title'],
-                            explanation=data['explanation'],
-                           date=data['date'],
-                           image_link=data['url'])
+            if 'youtube' in data['url']:
+                html= render_template('index.html', title=data['title'],
+                                explanation=data['explanation'],
+                               date=data['date'],
+                               video_link=data['url'])
+            else:
+                html= render_template('index.html', title=data['title'],
+                                explanation=data['explanation'],
+                               date=data['date'],
+                               image_link=data['url'])
             with open(path, "w") as page:
                 page.write(html)
             return html
             
         else:
             data=get_data()
-            html= render_template('index.html', title=data['title'],
-                            explanation=data['explanation'],
-                           date=data['date'],
-                           image_link=data['url'])
+            if 'youtube' in data['url']:
+                html= render_template('index.html', title=data['title'],
+                                explanation=data['explanation'],
+                               date=data['date'],
+                               video_link=data['url'])
+            else:
+                html= render_template('index.html', title=data['title'],
+                                explanation=data['explanation'],
+                               date=data['date'],
+                               image_link=data['url'])
             with open(path, "w") as page:
                 page.write(html)
             return html
     else:
         data=get_data()
-        html=render_template('index.html', title=data['title'],
-                            explanation=data['explanation'],
-                           date=data['date'],
-                           image_link=data['url'])
+        if 'youtube' in data['url']:
+                html= render_template('index.html', title=data['title'],
+                                explanation=data['explanation'],
+                               date=data['date'],
+                               video_link=data['url'])
+            else:
+                html= render_template('index.html', title=data['title'],
+                                explanation=data['explanation'],
+                               date=data['date'],
+                               image_link=data['url'])
+            with open(path, "w") as page:
+                page.write(html)
         with open(path, "w") as page:
                 page.write(html)
 
@@ -74,4 +97,4 @@ def save_as_pdf():
     
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
-    app.run(host="0.0.0.0", debug=False, port=port)
+    app.run(debug=False, port=port)
