@@ -73,4 +73,5 @@ def save_as_pdf():
     return html
     
 if __name__ == "__main__":
-    app.run(debug=False, port=3000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, port=port)
